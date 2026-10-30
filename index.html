@@ -1,1 +1,667 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial Pemasangan Panel XREG</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
+  body {
+    min-height: 100vh;
+    background: url('https://cdn.zass.in/IhFrW9i3k9.jpg') center/cover fixed no-repeat;
+    color: #fff;
+    position: relative;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10, 5, 30, 0.92), rgba(20, 5, 50, 0.85), rgba(0, 0, 0, 0.9));
+    z-index: -1;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: fadeDown 0.8s ease;
+  }
+
+  .header h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #a855f7, #06b6d4, #f472b6);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 4s ease infinite;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .header p {
+    color: #b8b8d0;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .header .badge {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #d8b4fe;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+  }
+
+  /* ===== STEP CARD ===== */
+  .step {
+    background: rgba(20, 15, 40, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 0.7s ease backwards;
+  }
+
+  .step:nth-child(2) { animation-delay: 0.1s; }
+  .step:nth-child(3) { animation-delay: 0.2s; }
+  .step:nth-child(4) { animation-delay: 0.3s; }
+  .step:nth-child(5) { animation-delay: 0.4s; }
+  .step:nth-child(6) { animation-delay: 0.5s; }
+
+  .step:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 15px 50px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(168, 85, 247, 0.5);
+  }
+
+  .step-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .step-desc {
+    color: #c9c9e0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    padding-left: 60px;
+  }
+
+  .step-desc .highlight {
+    color: #fbbf24;
+    font-weight: 600;
+    background: rgba(251, 191, 36, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .step-desc .warn {
+    color: #f87171;
+    font-weight: 600;
+  }
+
+  /* ===== IMAGE WRAPPER ===== */
+  .img-wrapper {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    margin-bottom: 18px;
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    display: block;
+    cursor: zoom-in;
+    transition: transform 0.5s ease, filter 0.3s ease;
+  }
+
+  .img-wrapper:hover img {
+    transform: scale(1.03);
+    filter: brightness(1.05);
+  }
+
+  /* ===== ACTION BUTTONS ===== */
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  .btn-zoom {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-zoom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+  }
+
+  .btn-download {
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  }
+
+  .btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6);
+  }
+
+  .btn:active { transform: translateY(0); }
+
+  /* ===== MODAL ZOOM ===== */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .modal img {
+    max-width: 95%;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+    animation: zoomIn 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(168, 85, 247, 0.9);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .modal-close:hover {
+    background: #ef4444;
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  .modal-download {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .modal-download:hover {
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.8);
+  }
+
+  /* ===== CONTACT FOOTER ===== */
+  .contact-section {
+    margin-top: 60px;
+    padding: 35px 25px;
+    background: rgba(20, 15, 40, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .contact-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #a855f7, #06b6d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .contact-section p {
+    color: #a8a8c0;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
+
+  .contact-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  .contact-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-wa {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  }
+
+  .btn-wa:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+  }
+
+  .btn-tg {
+    background: linear-gradient(135deg, #0088cc, #00aaff);
+    box-shadow: 0 4px 20px rgba(0, 136, 204, 0.4);
+  }
+
+  .btn-tg:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(0, 170, 255, 0.7);
+  }
+
+  .footer-text {
+    text-align: center;
+    color: #6b6b85;
+    font-size: 0.8rem;
+    margin-top: 30px;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    color: #fff;
+    padding: 14px 26px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 2000;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    body { padding: 20px 12px; }
+    .step { padding: 18px; border-radius: 16px; }
+    .step-desc { padding-left: 0; }
+    .step-num { width: 38px; height: 38px; font-size: 1rem; }
+    .step-title { font-size: 1rem; }
+    .btn { min-width: 100%; }
+    .contact-btn { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HEADER -->
+  <header class="header">
+    <h1>📱 TUTORIAL PEMASANGAN PANEL XREG BY RASYA STORE</h1>
+    <p>Ikuti langkah-langkah di bawah ini dengan teliti untuk memasang panel XREG dengan benar.</p>
+    <span class="badge">⚡ Panduan Lengkap & Mudah</span>
+  </header>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">Buka Panel XREG</div>
+    </div>
+    <p class="step-desc">Pertama, buka <span class="highlight">Panel XREG</span> pada perangkat kamu. Pastikan koneksi internet stabil sebelum memulai proses pemasangan.</p>
+    <div class="img-wrapper">
+      <img src="https://cdn.zass.in/4lR4Enleoa.jpg" alt="Step 1 - Buka Panel XREG" onclick="openModal(this.src, 'XREG-Step-1.jpg')">
+    </div>
+    <div class="actions">
+      <button class="btn btn-zoom" onclick="zoomImage('https://cdn.zass.in/4lR4Enleoa.jpg', 'XREG-Step-1.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        Perbesar Foto
+      </button>
+      <button class="btn btn-download" onclick="downloadImage('https://cdn.zass.in/4lR4Enleoa.jpg', 'XREG-Step-1.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Foto
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">Matikan Opsi Ini</div>
+    </div>
+    <p class="step-desc"><span class="warn">⚠️ Off kan aja mas</span>, biar ga rawan <span class="highlight">blacklist/band</span>. Pastikan opsi pada gambar di bawah ini dalam kondisi nonaktif.</p>
+    <div class="img-wrapper">
+      <img src="https://cdn.zass.in/42ovRdhbMN.jpg" alt="Step 2 - Matikan Opsi" onclick="openModal(this.src, 'XREG-Step-2.jpg')">
+    </div>
+    <div class="actions">
+      <button class="btn btn-zoom" onclick="zoomImage('https://cdn.zass.in/42ovRdhbMN.jpg', 'XREG-Step-2.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        Perbesar Foto
+      </button>
+      <button class="btn btn-download" onclick="downloadImage('https://cdn.zass.in/42ovRdhbMN.jpg', 'XREG-Step-2.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Foto
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">Aktifkan Opsi Ini</div>
+    </div>
+    <p class="step-desc"><span class="highlight">✅ Aktifkan ini aja mas</span>. Pastikan pengaturan sesuai dengan gambar di bawah ini agar panel berjalan dengan lancar.</p>
+    <div class="img-wrapper">
+      <img src="https://cdn.zass.in/t550Ijpa8m.jpg" alt="Step 3 - Aktifkan Opsi" onclick="openModal(this.src, 'XREG-Step-3.jpg')">
+    </div>
+    <div class="actions">
+      <button class="btn btn-zoom" onclick="zoomImage('https://cdn.zass.in/t550Ijpa8m.jpg', 'XREG-Step-3.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        Perbesar Foto
+      </button>
+      <button class="btn btn-download" onclick="downloadImage('https://cdn.zass.in/t550Ijpa8m.jpg', 'XREG-Step-3.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Foto
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">Konfigurasi Lanjutan</div>
+    </div>
+    <p class="step-desc">Lanjutkan dengan pengaturan berikutnya. Sesuaikan tampilan seperti pada gambar untuk memastikan semua pengaturan sudah benar.</p>
+    <div class="img-wrapper">
+      <img src="https://cdn.zass.in/0fYFnvE8YP.jpg" alt="Step 4 - Konfigurasi" onclick="openModal(this.src, 'XREG-Step-4.jpg')">
+    </div>
+    <div class="actions">
+      <button class="btn btn-zoom" onclick="zoomImage('https://cdn.zass.in/0fYFnvE8YP.jpg', 'XREG-Step-4.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        Perbesar Foto
+      </button>
+      <button class="btn btn-download" onclick="downloadImage('https://cdn.zass.in/0fYFnvE8YP.jpg', 'XREG-Step-4.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Foto
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title">Login & Test Training</div>
+    </div>
+    <p class="step-desc"><span class="highlight">✅ Aktifkan mas</span>, kalau udah langsung <span class="highlight">login epep</span> (Free Fire) dan <span class="highlight">tes training</span> untuk memastikan panel berfungsi dengan baik.</p>
+    <div class="img-wrapper">
+      <img src="https://cdn.zass.in/h5jFOtfWQb.jpg" alt="Step 5 - Login & Test" onclick="openModal(this.src, 'XREG-Step-5.jpg')">
+    </div>
+    <div class="actions">
+      <button class="btn btn-zoom" onclick="zoomImage('https://cdn.zass.in/h5jFOtfWQb.jpg', 'XREG-Step-5.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        Perbesar Foto
+      </button>
+      <button class="btn btn-download" onclick="downloadImage('https://cdn.zass.in/h5jFOtfWQb.jpg', 'XREG-Step-5.jpg')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Foto
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <h2>Butuh Bantuan? Hubungi Kami</h2>
+    <p>Jika kamu mengalami kesulitan atau ada pertanyaan, silakan hubungi kontak di bawah ini.</p>
+    <div class="contact-buttons">
+      <a href="https://wa.me/6289677269810" target="_blank" rel="noopener" class="contact-btn btn-wa">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://te.me/RasyaXD" target="_blank" rel="noopener" class="contact-btn btn-tg">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </section>
+
+  <p class="footer-text">© 2026 Tutorial XREG Panel By RasyaStore</p>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="imageModal" onclick="if(event.target === this) closeModal()">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <img id="modalImg" src="" alt="Preview">
+  <button class="modal-download" id="modalDownloadBtn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Foto
+  </button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Download dimulai...</div>
+
+<script>
+  // ===== MODAL ZOOM =====
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+  let currentDownloadUrl = '';
+  let currentFilename = '';
+
+  function openModal(src, filename) {
+    modalImg.src = src;
+    currentDownloadUrl = src;
+    currentFilename = filename;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function zoomImage(src, filename) {
+    openModal(src, filename);
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  modalDownloadBtn.addEventListener('click', () => {
+    if (currentDownloadUrl) downloadImage(currentDownloadUrl, currentFilename);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ===== DOWNLOAD IMAGE =====
+  async function downloadImage(url, filename) {
+    showToast('⏳ Mengunduh foto...');
+    try {
+      const response = await fetch(url, { mode: 'cors' });
+      if (!response.ok) throw new Error('Network error');
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      showToast('✅ Foto berhasil diunduh!');
+    } catch (err) {
+      // Fallback: buka di tab baru jika CORS diblokir
+      window.open(url, '_blank');
+      showToast('📥 Foto dibuka di tab baru, silakan simpan manual.');
+    }
+  }
+
+  // ===== TOAST =====
+  let toastTimer;
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+</script>
+
+</body>
+</html>
