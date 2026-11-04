@@ -305,6 +305,203 @@
     box-shadow: 0 8px 30px rgba(6, 182, 212, 0.8);
   }
 
+  /* ===== INFO SECTION (JARINGAN & ANTI-BL) ===== */
+  .info-section {
+    margin-top: 60px;
+    animation: fadeUp 0.7s ease backwards;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+  }
+
+  .info-card {
+    background: rgba(20, 15, 40, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 28px 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .info-card.network {
+    border: 1px solid rgba(6, 182, 212, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.15);
+  }
+
+  .info-card.network:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 45px rgba(6, 182, 212, 0.35);
+  }
+
+  .info-card.antibl {
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(239, 68, 68, 0.15);
+  }
+
+  .info-card.antibl:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 45px rgba(239, 68, 68, 0.35);
+  }
+
+  .info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .info-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .info-card.network .info-icon {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    box-shadow: 0 5px 20px rgba(6, 182, 212, 0.5);
+  }
+
+  .info-card.antibl .info-icon {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    box-shadow: 0 5px 20px rgba(239, 68, 68, 0.5);
+  }
+
+  .info-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .info-card.network .info-card-title {
+    background: linear-gradient(135deg, #22d3ee, #60a5fa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .info-card.antibl .info-card-title {
+    background: linear-gradient(135deg, #f87171, #fbbf24);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .info-subtitle {
+    font-size: 0.78rem;
+    color: #a8a8c0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-subtitle .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 10px #22d3ee;
+    animation: pulse 2s infinite;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .info-list:last-child { margin-bottom: 0; }
+
+  .info-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 0.92rem;
+    color: #e0e0f0;
+    transition: all 0.25s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .info-card.network .info-list li {
+    border-left-color: rgba(34, 211, 238, 0.6);
+  }
+
+  .info-card.network .info-list li:hover {
+    background: rgba(34, 211, 238, 0.12);
+    transform: translateX(4px);
+  }
+
+  .info-card.antibl .info-list li {
+    border-left-color: rgba(248, 113, 113, 0.6);
+  }
+
+  .info-card.antibl .info-list li:hover {
+    background: rgba(248, 113, 113, 0.12);
+    transform: translateX(4px);
+  }
+
+  .info-list li .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .info-card.network .info-list li .num {
+    background: rgba(34, 211, 238, 0.2);
+    color: #67e8f9;
+    border: 1px solid rgba(34, 211, 238, 0.4);
+  }
+
+  .info-card.antibl .info-list li .num {
+    background: rgba(248, 113, 113, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+  }
+
+  .info-list li strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .warn-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    font-weight: 600;
+    margin-left: auto;
+    letter-spacing: 0.5px;
+  }
+
   /* ===== CONTACT FOOTER ===== */
   .contact-section {
     margin-top: 60px;
@@ -432,6 +629,11 @@
     to { transform: scale(1); opacity: 1; }
   }
 
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 600px) {
     body { padding: 20px 12px; }
@@ -441,6 +643,8 @@
     .step-title { font-size: 1rem; }
     .btn { min-width: 100%; }
     .contact-btn { min-width: 100%; }
+    .info-card { padding: 22px 18px; }
+    .info-card-title { font-size: 1rem; }
   }
 </style>
 </head>
@@ -564,6 +768,62 @@
     </div>
   </div>
 
+  <!-- ===== INFO SECTION : JARINGAN & ANTI-BL ===== -->
+  <div class="info-section">
+    <div class="info-grid">
+
+      <!-- JARINGAN LANCAR -->
+      <div class="info-card network">
+        <div class="info-card-header">
+          <div class="info-icon">📶</div>
+          <div class="info-card-title">Jaringan yang Lancar<br>untuk Pakai Panel</div>
+        </div>
+
+        <div class="info-subtitle">
+          <span class="dot"></span> KUOTA
+        </div>
+        <ul class="info-list">
+          <li><span class="num">1</span><strong>TRI</strong></li>
+          <li><span class="num">2</span><strong>Telkomsel</strong></li>
+          <li><span class="num">3</span><strong>IM3 (Indosat)</strong></li>
+        </ul>
+
+        <div class="info-subtitle">
+          <span class="dot"></span> WIFI
+        </div>
+        <ul class="info-list">
+          <li><span class="num">1</span><strong>Biznet</strong></li>
+        </ul>
+      </div>
+
+      <!-- TUTORIAL ANTI BL -->
+      <div class="info-card antibl">
+        <div class="info-card-header">
+          <div class="info-icon">🛡️</div>
+          <div class="info-card-title">Tutorial Tidak Kena BL<br>(Blacklist)</div>
+        </div>
+
+        <ul class="info-list">
+          <li>
+            <span class="num">1</span>
+            <strong>Main CR jangan ngetik</strong>
+            <span class="warn-tag">PENTING</span>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <strong>Main CR jangan ON mic</strong>
+            <span class="warn-tag">PENTING</span>
+          </li>
+        </ul>
+
+        <p style="margin-top:15px; font-size:0.82rem; color:#a8a8c0; line-height:1.6; background:rgba(239,68,68,0.08); padding:12px; border-radius:10px; border-left:3px solid rgba(239,68,68,0.6);">
+          💡 <strong style="color:#fca5a5;">Tips:</strong> Patuhi kedua aturan di atas setiap main Custom Room (CR) agar akun kamu aman dan tidak terkena blacklist/band.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
   <!-- CONTACT -->
   <section class="contact-section">
     <h2>Butuh Bantuan? Hubungi Kami</h2>
@@ -580,7 +840,7 @@
     </div>
   </section>
 
-  <p class="footer-text">© 2026 Tutorial XREG Panel By RasyaStore</p>
+  <p class="footer-text">© 2026 Tutorial Xreg Panel By RasyaStore</p>
 </div>
 
 <!-- MODAL -->
@@ -646,7 +906,6 @@
       setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
       showToast('✅ Foto berhasil diunduh!');
     } catch (err) {
-      // Fallback: buka di tab baru jika CORS diblokir
       window.open(url, '_blank');
       showToast('📥 Foto dibuka di tab baru, silakan simpan manual.');
     }
